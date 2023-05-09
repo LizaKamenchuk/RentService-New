@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -52,7 +51,7 @@ public class CarController {
     }
 
     @PatchMapping(value = "/admin/update")
-    public CarResponse update(@Valid @RequestBody CarUpdateRequest request, @RequestParam Integer idCar){
+    public CarResponse update(@RequestBody CarUpdateRequest request, @RequestParam Integer idCar){
         return feignCarClient.update(request, idCar);
     }
 }

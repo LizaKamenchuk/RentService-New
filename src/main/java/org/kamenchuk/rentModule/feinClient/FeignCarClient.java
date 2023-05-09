@@ -7,7 +7,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @FeignClient(value = "feignCarClient", url = "http://localhost:8080/rent_module/car")
@@ -31,5 +30,5 @@ public interface FeignCarClient {
     void deleteByCarNumber(@PathVariable String carNumber);
 
     @PatchMapping(value = "/admin/update")
-    CarResponse update(@Valid @RequestBody CarUpdateRequest request, @RequestParam Integer idCar);
+    CarResponse update(@RequestBody CarUpdateRequest request, @RequestParam Integer idCar);
 }
