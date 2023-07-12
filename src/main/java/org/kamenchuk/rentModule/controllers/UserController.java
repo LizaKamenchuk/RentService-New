@@ -1,5 +1,6 @@
 package org.kamenchuk.rentModule.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.kamenchuk.dto.userDTO.UserCreateRequest;
 import org.kamenchuk.dto.userDTO.UserResponse;
 import org.kamenchuk.rentModule.feinClient.FeignUserClient;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/rent_module/user")
+@SecurityRequirement(name = "bearerToken")
 public class UserController {
     private final FeignUserClient feignUserClient;
 

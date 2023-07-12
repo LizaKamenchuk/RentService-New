@@ -1,5 +1,6 @@
 package org.kamenchuk.rentModule.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.kamenchuk.dto.roleDTO.RoleResponse;
 import org.kamenchuk.rentModule.feinClient.FeignRoleClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/rent_module/role")
+@SecurityRequirement(name = "bearerToken")
 public class RoleController {
     private final FeignRoleClient feignRoleClient;
 

@@ -1,5 +1,6 @@
 package org.kamenchuk.rentModule.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.kamenchuk.dto.orderDTO.*;
 import org.kamenchuk.rentModule.feinClient.FeignOrderClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rent_module/order")
+@SecurityRequirement(name = "bearerToken")
 public class OrderController {
     private final FeignOrderClient feignOrderClient;
 

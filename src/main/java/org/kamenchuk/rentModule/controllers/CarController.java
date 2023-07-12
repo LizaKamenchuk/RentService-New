@@ -1,5 +1,6 @@
 package org.kamenchuk.rentModule.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.kamenchuk.dto.carDTO.CarCreateRequest;
 import org.kamenchuk.dto.carDTO.CarResponse;
 import org.kamenchuk.dto.carDTO.CarUpdateRequest;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rent_module/car")
+@SecurityRequirement(name = "bearerToken")
 public class CarController {
     private final FeignCarClient feignCarClient;
 

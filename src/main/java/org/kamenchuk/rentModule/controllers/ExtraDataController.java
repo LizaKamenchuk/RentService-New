@@ -1,11 +1,13 @@
 package org.kamenchuk.rentModule.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.kamenchuk.dto.extraUsersDataDTO.ExtraUserDataUpdateRequest;
 import org.kamenchuk.rentModule.feinClient.FeignExtraDataClient;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/rest_module/extraData")
+@SecurityRequirement(name = "bearerToken")
 public class ExtraDataController {
     private final FeignExtraDataClient feignExtraDataClient;
 
