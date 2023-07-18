@@ -1,4 +1,4 @@
-package org.kamenchuk.security.jwt.service.impl;
+package org.kamenchuk.rentModule.service.impl;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
