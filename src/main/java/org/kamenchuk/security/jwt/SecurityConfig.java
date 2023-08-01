@@ -1,6 +1,6 @@
 package org.kamenchuk.security.jwt;
 
-import org.kamenchuk.security.jwt.service.impl.UserServiceImpl;
+import org.kamenchuk.rentModule.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

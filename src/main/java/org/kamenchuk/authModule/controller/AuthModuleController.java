@@ -1,5 +1,6 @@
 package org.kamenchuk.authModule.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.kamenchuk.authModule.feignClient.AuthJwtClient;
 import org.kamenchuk.authModule.feignClient.dto.LoginCredentials;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth_module")
+@SecurityRequirement(name = "bearerToken")
 public class AuthModuleController {
     private final AuthJwtClient jwtClient;
     public static HttpStatus STATUS = HttpStatus.UNAUTHORIZED;

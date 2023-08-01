@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version "${spring_boot_version}"
     id 'io.spring.dependency-management' version "${dependency_manager_version}"
+    id 'maven-publish'
 }
 
 group = 'com.kamenchuk'
@@ -14,12 +15,14 @@ configurations {
     }
 }
 
+
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
-    implementation project(':CommonDtos')
+    implementation 'org.kamenchuk:commonDtos:1.0'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation "org.springdoc:springdoc-openapi-ui:${openapi_ui_version}"
@@ -37,6 +40,7 @@ dependencies {
 //    don't change version
     implementation 'org.springframework.security:spring-security-config:5.7.7'
 }
+
 
 
 tasks.named('test') {
