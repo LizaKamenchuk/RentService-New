@@ -1,4 +1,4 @@
-package org.kamenchuk.authModule.feignClient.dto;
+package org.kamenchuk.auth.feignClient.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

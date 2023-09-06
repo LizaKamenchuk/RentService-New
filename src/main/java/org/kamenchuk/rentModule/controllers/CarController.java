@@ -7,7 +7,6 @@ import org.kamenchuk.dto.carDTO.CarUpdateRequest;
 import org.kamenchuk.rentModule.feinClient.FeignCarClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class CarController {
     }
 
     @GetMapping(value = "/getCarById/{idCar}")
-    public CarResponse getCarById(@PathVariable Integer idCar)  {
+    public CarResponse getCarById(@PathVariable Integer idCar) {
         return feignCarClient.getCarById(idCar);
     }
 
@@ -37,9 +36,9 @@ public class CarController {
         return feignCarClient.getByCarNumber(carNumber);
     }
 
-    @PostMapping(value = "/admin/create"/*, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}*/)
-    public CarResponse create(@RequestPart MultipartFile file, @RequestPart CarCreateRequest request) {
-        return feignCarClient.create(file,request);
+    @PostMapping(value = "/admin/create")
+    public CarResponse create(@RequestPart CarCreateRequest request) {
+        return feignCarClient.create(request);
     }
 
     @DeleteMapping(value = "/admin/deleteById/{id}")
@@ -53,7 +52,7 @@ public class CarController {
     }
 
     @PatchMapping(value = "/admin/update")
-    public CarResponse update(@RequestBody CarUpdateRequest request, @RequestParam Integer idCar){
+    public CarResponse update(@RequestBody CarUpdateRequest request, @RequestParam Integer idCar) {
         return feignCarClient.update(request, idCar);
     }
 }

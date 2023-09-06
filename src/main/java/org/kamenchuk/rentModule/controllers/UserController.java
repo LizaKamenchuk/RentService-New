@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.kamenchuk.dto.userDTO.UserCreateRequest;
 import org.kamenchuk.dto.userDTO.UserResponse;
 import org.kamenchuk.rentModule.feinClient.FeignUserClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +16,12 @@ import java.util.List;
 @SecurityRequirement(name = "bearerToken")
 public class UserController {
     private final FeignUserClient feignUserClient;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(FeignUserClient feignUserClient) {
+    @Autowired
+    public UserController(FeignUserClient feignUserClient, PasswordEncoder passwordEncoder) {
         this.feignUserClient = feignUserClient;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping(value = "/admin/all")
@@ -31,7 +36,7 @@ public class UserController {
 
     @PostMapping(value = "/create")
     public UserResponse create(@RequestBody UserCreateRequest userDto) {
-        return feignUserClient.create(userDto);
+        return feignUserClient.create(encodeRawPassword(userDto));
     }
 
     @DeleteMapping(value = "/delete/{id}")
@@ -42,6 +47,17 @@ public class UserController {
     @PatchMapping("/updateLogin")
     public UserResponse updateLogin(@RequestParam String newLogin, @RequestParam Long id) {
         return feignUserClient.updateLogin(newLogin, id);
+    }
+
+    @PostMapping("/admin/changeUserRole/{id}")
+    public UserResponse changeUserRole(@PathVariable Long id, @RequestParam String role) {
+        return feignUserClient.changeUserRole(id, role);
+    }
+
+    private UserCreateRequest encodeRawPassword(UserCreateRequest userDto) {
+        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+        userDto.setPassword(encodedPassword);
+        return userDto;
     }
 
 }

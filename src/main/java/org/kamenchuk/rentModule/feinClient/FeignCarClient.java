@@ -5,7 +5,6 @@ import org.kamenchuk.dto.carDTO.CarResponse;
 import org.kamenchuk.dto.carDTO.CarUpdateRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,8 +19,8 @@ public interface FeignCarClient {
     @GetMapping(value = "/getByCarNumber/{carNumber}")
     CarResponse getByCarNumber(@PathVariable String carNumber);
 
-    @PostMapping(value = "/admin/create"/*, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}*/)
-    CarResponse create(@RequestPart MultipartFile file, @RequestPart CarCreateRequest request);
+    @PostMapping(value = "/admin/create")
+    CarResponse create(@RequestPart CarCreateRequest request);
 
     @DeleteMapping(value = "/admin/deleteById/{id}")
     void deleteById(@PathVariable Integer id);

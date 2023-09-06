@@ -22,4 +22,7 @@ public interface FeignUserClient {
 
     @PatchMapping("/updateLogin")
     UserResponse updateLogin(@RequestParam String newLogin, @RequestParam Long id);
+
+    @PostMapping("/admin/changeUserRole/{id}")
+    UserResponse changeUserRole(@PathVariable Long id,@RequestParam String role);
 }

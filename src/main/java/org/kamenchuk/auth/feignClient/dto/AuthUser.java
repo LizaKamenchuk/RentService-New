@@ -1,4 +1,4 @@
-package org.kamenchuk.models;
+package org.kamenchuk.auth.feignClient.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,9 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User implements UserDetails {
-
+public class AuthUser implements UserDetails {
     private String login;
+    private String password;
     private String role;
 
     @Override
@@ -29,33 +29,31 @@ public class User implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return null;
+    public String getUsername(){
+        return this.login;
     }
-
-
     @Override
-    public String getUsername() {
-        return getLogin();
+    public String getPassword() {
+        return this.password;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return false;
     }
 }
