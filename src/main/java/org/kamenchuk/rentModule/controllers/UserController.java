@@ -3,9 +3,8 @@ package org.kamenchuk.rentModule.controllers;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.kamenchuk.dto.userDTO.UserCreateRequest;
 import org.kamenchuk.dto.userDTO.UserResponse;
-import org.kamenchuk.rentModule.feinClient.FeignUserClient;
+import org.kamenchuk.rentModule.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,49 +14,40 @@ import java.util.List;
 @RequestMapping(path = "/rent_module/user")
 @SecurityRequirement(name = "bearerToken")
 public class UserController {
-    private final FeignUserClient feignUserClient;
-    private final PasswordEncoder passwordEncoder;
-
+    private final UserService userService;
     @Autowired
-    public UserController(FeignUserClient feignUserClient, PasswordEncoder passwordEncoder) {
-        this.feignUserClient = feignUserClient;
-        this.passwordEncoder = passwordEncoder;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping(value = "/admin/all")
     public List<UserResponse> getAllUser() {
-        return feignUserClient.getAllUser();
+        return userService.getAllUser();
     }
 
     @GetMapping(value = "/admin/findById/{id}")
     public UserResponse findById(@PathVariable Long id) {
-        return feignUserClient.findById(id);
+        return userService.findById(id);
     }
 
     @PostMapping(value = "/create")
     public UserResponse create(@RequestBody UserCreateRequest userDto) {
-        return feignUserClient.create(encodeRawPassword(userDto));
+        return userService.create(userDto);
     }
 
     @DeleteMapping(value = "/delete/{id}")
     public void delete(@PathVariable Long id) {
-        feignUserClient.delete(id);
+        userService.delete(id);
     }
 
     @PatchMapping("/updateLogin")
     public UserResponse updateLogin(@RequestParam String newLogin, @RequestParam Long id) {
-        return feignUserClient.updateLogin(newLogin, id);
+        return userService.updateLogin(newLogin, id);
     }
 
     @PostMapping("/admin/changeUserRole/{id}")
     public UserResponse changeUserRole(@PathVariable Long id, @RequestParam String role) {
-        return feignUserClient.changeUserRole(id, role);
-    }
-
-    private UserCreateRequest encodeRawPassword(UserCreateRequest userDto) {
-        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
-        userDto.setPassword(encodedPassword);
-        return userDto;
+        return userService.changeUserRole(id, role);
     }
 
 }
